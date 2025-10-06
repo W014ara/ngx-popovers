@@ -72,6 +72,17 @@ export class FloatingComponent implements AfterViewInit, OnChanges, DoCheck, OnD
   bindTo = input(this.config.bindTo);
   styleClass = input(this.config.styleClass || '');
 
+  floatingClasses = computed(() => {
+    const defaultClass = { 'floating': true };
+    const res: Record<string, true> = {};
+    if (this.styleClass()) {
+      this.styleClass().split(' ').forEach((className) => {
+        res[className] = true;
+      })
+    }
+    return {...res, ...defaultClass};
+  });
+
   clickedOutside = output<Element>();
   clickedInside = output<Element>();
   computePositionReturn = output<ComputePositionReturn>();
@@ -198,16 +209,5 @@ export class FloatingComponent implements AfterViewInit, OnChanges, DoCheck, OnD
       });
     }
     return null;
-  }
-
-  setStyleClass() {
-    const defaultClass = { 'floating': true };
-    const res: Record<string, true> = {};
-    if (this.styleClass()) {
-      this.styleClass().split(' ').forEach((className) => {
-        res[className] = true;
-      })
-    }
-    return {...res, ...defaultClass};
   }
 }
