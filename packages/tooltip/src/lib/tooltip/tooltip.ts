@@ -65,6 +65,9 @@ export class NgxTooltip implements OnChanges {
   @Input()
   middleware: MiddlewareList = this.config.middleware;
 
+  @Input()
+  styleClass: string = this.config.styleClass || '';
+
   strategy = input(this.config.strategy);
 
   private _ngxValue = false;

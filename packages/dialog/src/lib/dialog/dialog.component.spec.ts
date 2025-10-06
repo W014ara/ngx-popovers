@@ -11,7 +11,7 @@ import { awaitTime } from '@ngx-popovers/core';
   template: `
     <ngx-dialog>
       <button id="trigger-test-id" ngx-dialog-trigger>Dialog</button>
-      
+
       <ng-template ngx-dialog-template>
         <div id="content-test-id">
           content
@@ -158,5 +158,17 @@ describe('DialogComponent', () => {
     await open();
 
     expect(dBackdrop().classList.contains('backdrop-class')).toBeTruthy();
+  });
+
+  it('should set additional classes', async () => {
+    dialog().styleClass = 'additional-class';
+    await open();
+    const dialogEl = document.querySelector('.ngx-dialog-container')!;
+    expect(dialogEl.classList.contains('additional-class')).toBeTruthy();
+
+    dialog().styleClass = 'first-class second-class';
+    fixture.detectChanges();
+    expect(dialogEl.classList.contains('first-class')).toBeTruthy();
+    expect(dialogEl.classList.contains('second-class')).toBeTruthy();
   });
 });

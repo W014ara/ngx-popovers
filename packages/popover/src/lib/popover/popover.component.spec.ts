@@ -13,11 +13,11 @@ import { PopoverComponent } from './popover.component';
       [(value)]="value"
     >
       <button>Trigger</button>
-      
+
       <ng-template ngx-popover-template>
         <p id="popover-content">Lorem ipsum dolor.</p>
       </ng-template>
-      
+
       <ngx-arrow />
     </ngx-popover>
   `,
@@ -209,5 +209,20 @@ describe('PopoverComponent', () => {
       expect(close).not.toHaveBeenCalled();
       expect(popover().value).not.toBeFalsy();
     });
+  });
+
+  it('should set additional classes', async () => {
+    popover().styleClass = 'additional-class';
+    document.body.click();
+    fixture.detectChanges();
+    await awaitTime();
+
+    const popoverEl = document.querySelector('.floating')!;
+    expect(popoverEl.classList.contains('additional-class')).toBeTruthy();
+
+    popover().styleClass = 'first-class second-class';
+    fixture.detectChanges();
+    expect(popoverEl.classList.contains('first-class')).toBeTruthy();
+    expect(popoverEl.classList.contains('second-class')).toBeTruthy();
   });
 });

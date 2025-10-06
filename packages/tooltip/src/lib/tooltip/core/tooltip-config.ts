@@ -3,6 +3,7 @@ import { flip, FloatingConfig, MiddlewareList, NgxFloatingConfig, offset } from 
 export interface TooltipConfig extends FloatingConfig {
   debounce: number;
   arrow: boolean;
+  styleClass?: string;
   arrowPadding: number;
 }
 

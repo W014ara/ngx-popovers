@@ -70,6 +70,7 @@ export class FloatingComponent implements AfterViewInit, OnChanges, DoCheck, OnD
   arrow = model<Arrow>();
   middleware = input(this.config.middleware);
   bindTo = input(this.config.bindTo);
+  styleClass = input(this.config.styleClass || '');
 
   clickedOutside = output<Element>();
   clickedInside = output<Element>();
@@ -197,5 +198,16 @@ export class FloatingComponent implements AfterViewInit, OnChanges, DoCheck, OnD
       });
     }
     return null;
+  }
+
+  setStyleClass() {
+    const defaultClass = { 'floating': true };
+    const res: Record<string, true> = {};
+    if (this.styleClass()) {
+      this.styleClass().split(' ').forEach((className) => {
+        res[className] = true;
+      })
+    }
+    return {...res, ...defaultClass};
   }
 }

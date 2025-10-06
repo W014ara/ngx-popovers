@@ -56,6 +56,18 @@ describe('Tooltip', () => {
     await awaitTime();
     expect(compute).toHaveBeenCalled();
   });
+
+  it('should set additional classes', async () => {
+    fixture.componentRef.setInput('ngxValue', true);
+    fixture.componentRef.setInput('styleClass', 'additional-class');
+    fixture.detectChanges();
+    expect(floating()?.classList.contains('additional-class')).toBeTruthy();
+
+    fixture.componentRef.setInput('styleClass', 'first-class second-class');
+    fixture.detectChanges();
+    expect(floating()?.classList.contains('first-class')).toBeTruthy();
+    expect(floating()?.classList.contains('second-class')).toBeTruthy();
+  });
 });
 
 describe('Tooltip.DI', () => {
@@ -95,7 +107,7 @@ describe('Tooltip.DOM', () => {
 
   @Component({
     template: `
-      <button [ngxTooltip]="tooltipText" [(ngxValue)]="ngxValue">Button</button>
+      <button [ngxTooltip]="tooltipText" [styleClass]="styleClass" [(ngxValue)]="ngxValue">Button</button>
     `,
     imports: [NgxTooltip],
     standalone: true
@@ -105,6 +117,8 @@ describe('Tooltip.DOM', () => {
     tooltipText = tooltipText;
     @Input()
     ngxValue = false;
+    @Input()
+    styleClass = '';
   }
 
   let component: NgxTooltipTest;
@@ -226,6 +240,20 @@ describe('Tooltip.DOM', () => {
 
     expect(tooltipInstance().isTooltipCreated()).toBeFalsy();
     expect(floatingEl).not.toBeInTheDocument();
+  });
+
+  it('should set additional classes', async () => {
+    tooltipInstance().ngxValue = true;
+    fixture.componentRef.setInput('ngxValue', true);
+    fixture.componentRef.setInput('styleClass', 'additional-class');
+    fixture.detectChanges();
+    const floatingEl = document.querySelector('.floating');
+    expect(floatingEl?.classList.contains('additional-class')).toBeTruthy();
+
+    fixture.componentRef.setInput('styleClass', 'first-class second-class');
+    fixture.detectChanges();
+    expect(floatingEl?.classList.contains('first-class')).toBeTruthy();
+    expect(floatingEl?.classList.contains('second-class')).toBeTruthy();
   });
 });
 

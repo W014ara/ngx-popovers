@@ -62,6 +62,9 @@ export class DialogComponent implements AfterViewInit {
   @Input()
   closeOnBackdropClick = this.config.closeOnBackdropClick;
 
+  @Input()
+  styleClass = this.config.styleClass;
+
   @Output()
   valueChange = new EventEmitter<boolean>();
 
@@ -120,5 +123,16 @@ export class DialogComponent implements AfterViewInit {
   onAnimationDone(event: AnimationEvent) {
     this.isAnimating.set(false);
     this.animationDone.emit(event);
+  }
+
+  setStyleClass() {
+    const defaultClass = { 'ngx-dialog-container': true };
+    const res: Record<string, true> = {};
+    if (this.styleClass) {
+      this.styleClass.split(' ').forEach((className) => {
+        res[className] = true;
+      })
+    }
+    return {...res, ...defaultClass};
   }
 }

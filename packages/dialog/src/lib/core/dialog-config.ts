@@ -1,5 +1,6 @@
 export interface DialogConfig {
   animationDisabled: boolean;
+  styleClass?: string;
   contentClass: string;
   backdropClass: string;
   closeOnBackdropClick: boolean;
@@ -8,6 +9,7 @@ export interface DialogConfig {
 export class NgxDialogConfig implements DialogConfig {
   animationDisabled = false;
   contentClass = '';
+  styleClass = '';
   backdropClass = '';
   closeOnBackdropClick = true;
 

@@ -131,6 +131,17 @@ describe('FloatingComponent', () => {
     fixture.detectChanges();
     expect(floating()).toBeFalsy();
   });
+
+  it('should set additional classes', async () => {
+    fixture.componentRef.setInput('styleClass', 'additional-class');
+    fixture.detectChanges();
+    expect(floating().classList.contains('additional-class')).toBeTruthy();
+
+    fixture.componentRef.setInput('styleClass', 'first-class second-class');
+    fixture.detectChanges();
+    expect(floating().classList.contains('first-class')).toBeTruthy();
+    expect(floating().classList.contains('second-class')).toBeTruthy();
+  });
 });
 
 describe('FloatingComponent.DI', () => {

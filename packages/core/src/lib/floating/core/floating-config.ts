@@ -4,6 +4,7 @@ export interface FloatingConfig {
   placement: Placement;
   autoUpdate: boolean;
   bindTo?: HTMLElement | string;
+  styleClass?: string;
   strategy?: Strategy;
 
   middleware: MiddlewareList;
@@ -14,6 +15,7 @@ export class NgxFloatingConfig implements FloatingConfig {
   autoUpdate = true;
   bindTo?: HTMLElement | string;
   strategy?: Strategy;
+  styleClass?: string;
   middleware: MiddlewareList = [
     offset(4),
     flip()
