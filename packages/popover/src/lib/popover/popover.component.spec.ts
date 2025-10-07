@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, Input } from '@angular/core';
+import { Component, input, Input } from '@angular/core';
 import { PopoverModule } from '../popover.module';
 import { Arrow, awaitTime } from '@ngx-popovers/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -11,6 +11,7 @@ import { PopoverComponent } from './popover.component';
   template: `
     <ngx-popover
       [(value)]="value"
+      [styleClass]="styleClass()"
     >
       <button>Trigger</button>
 
@@ -26,6 +27,8 @@ import { PopoverComponent } from './popover.component';
 class PopoverTest {
   @Input()
   value = false;
+
+  styleClass = input("");
 }
 
 describe('PopoverComponent', () => {
@@ -212,7 +215,7 @@ describe('PopoverComponent', () => {
   });
 
   it('should set additional classes', async () => {
-    popover().styleClass = 'additional-class';
+    fixture.componentRef.setInput('styleClass', "additional-class");
     document.body.click();
     fixture.detectChanges();
     await awaitTime();
@@ -220,7 +223,7 @@ describe('PopoverComponent', () => {
     const popoverEl = document.querySelector('.floating')!;
     expect(popoverEl.classList.contains('additional-class')).toBeTruthy();
 
-    popover().styleClass = 'first-class second-class';
+    fixture.componentRef.setInput('styleClass', "first-class second-class");
     fixture.detectChanges();
     expect(popoverEl.classList.contains('first-class')).toBeTruthy();
     expect(popoverEl.classList.contains('second-class')).toBeTruthy();

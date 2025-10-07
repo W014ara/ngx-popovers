@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { NgxDialog } from '../dialog.module';
 import { DialogComponent } from './dialog.component';
@@ -9,7 +9,7 @@ import { awaitTime } from '@ngx-popovers/core';
 
 @Component({
   template: `
-    <ngx-dialog>
+    <ngx-dialog [styleClass]="styleClass()">
       <button id="trigger-test-id" ngx-dialog-trigger>Dialog</button>
 
       <ng-template ngx-dialog-template>
@@ -25,7 +25,7 @@ import { awaitTime } from '@ngx-popovers/core';
   ]
 })
 class DialogTest {
-
+  styleClass = input<string>("");
 }
 
 describe('DialogComponent', () => {
@@ -161,12 +161,12 @@ describe('DialogComponent', () => {
   });
 
   it('should set additional classes', async () => {
-    dialog().styleClass = 'additional-class';
+    fixture.componentRef.setInput("styleClass", 'additional-class');
     await open();
     const dialogEl = document.querySelector('.ngx-dialog-container')!;
     expect(dialogEl.classList.contains('additional-class')).toBeTruthy();
 
-    dialog().styleClass = 'first-class second-class';
+    fixture.componentRef.setInput("styleClass", 'first-class second-class');
     fixture.detectChanges();
     expect(dialogEl.classList.contains('first-class')).toBeTruthy();
     expect(dialogEl.classList.contains('second-class')).toBeTruthy();

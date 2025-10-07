@@ -101,8 +101,7 @@ export class PopoverComponent implements OnChanges {
   @Input({ transform: booleanAttribute })
   value = false;
 
-  @Input()
-  styleClass: string = this.config.styleClass || "";
+  styleClass = input(this.config.styleClass || "");
 
   @Output()
   valueChange = new EventEmitter<boolean>();

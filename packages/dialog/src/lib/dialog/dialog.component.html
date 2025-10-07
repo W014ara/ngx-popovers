@@ -2,7 +2,7 @@
 
 @if (templateRef && (value || isAnimating())) {
   <ngx-portal>
-    <div [class]="setStyleClass()">
+    <div [class]="dialogClasses()">
       <div
         class="ngx-dialog-backdrop"
         [ngClass]="backdropClass"

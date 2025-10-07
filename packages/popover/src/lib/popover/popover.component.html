@@ -7,7 +7,7 @@
 
 @if (value || isAnimating()) {
   <ngx-floating
-    [styleClass]="styleClass"
+    [styleClass]="styleClass()"
     [reference]="anchor"
     [placement]="placement"
     [middleware]="middleware"
